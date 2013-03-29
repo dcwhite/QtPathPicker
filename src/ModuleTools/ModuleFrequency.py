@@ -9,7 +9,7 @@ def networkFileNames(path):
 				names.append(os.path.join(dirname, filename))
 	return names
 
-print networkFileNames(r"E:\scirun\trunk_ref\SCIRun\src\nets")
+#print networkFileNames(r"E:\scirun\trunk_ref\SCIRun\src\nets")
 
 def moduleLines(file):
 	modLines = []
@@ -20,10 +20,10 @@ def moduleLines(file):
 
 
 	
-testFile = r"E:\scirun\trunk_ref\SCIRun\src\nets\FwdInvToolbox\activation-based-fem\activation-based-fem.srn"
-ml = moduleLines(testFile)
+#testFile = r"E:\scirun\trunk_ref\SCIRun\src\nets\FwdInvToolbox\activation-based-fem\activation-based-fem.srn"
+#ml = moduleLines(testFile)
 
-sampleLine = ml[0]
+#sampleLine = ml[0]
 
 nameAttr = "name=\""
 
@@ -32,7 +32,7 @@ def grabModuleNameFromLine(line):
     end = line.find("\"", start + len(nameAttr))
     return line[(start + len(nameAttr)):end]
 
-grabModuleNameFromLine(sampleLine)
+#grabModuleNameFromLine(sampleLine)
 
 def modulesInNetworkFile(file):
 	modules = []
@@ -40,15 +40,15 @@ def modulesInNetworkFile(file):
 		modules.append(grabModuleNameFromLine(line))
 	return modules
 
-modulesInNetworkFile(testFile)
+#modulesInNetworkFile(testFile)
 
 def moduleCountDictionary(file):
 	list = modulesInNetworkFile(file)
 	return {mod : list.count(mod) for mod in list}
 
 
-dict = moduleCountDictionary(testFile)
-print dict
+#dict = moduleCountDictionary(testFile)
+#print dict
 
 def moduleLinesMany(files):
 	modLines = []
@@ -66,8 +66,18 @@ def moduleCountDictionaryMany(files):
 	list = modulesInNetworkFileMany(files)
 	return {mod : list.count(mod) for mod in list}
 
-modFreq = moduleCountDictionaryMany(networkFileNames(r"E:\scirun\trunk_ref\SCIRun\src\nets"))
+#modFreq = moduleCountDictionaryMany(networkFileNames(r"E:\scirun\trunk_ref\SCIRun\src\nets"))
 
-modsSortedByFreq = sorted(modFreq.items(), key=lambda x: x[1], reverse=True)
+#modsSortedByFreq = sorted(modFreq.items(), key=lambda x: x[1], reverse=True)
 
-print modsSortedByFreq[:10]
+#print modsSortedByFreq[:10]
+
+def printTop10ModulesByFreq(path):
+  modFreq = moduleCountDictionaryMany(networkFileNames(path))
+  modsSortedByFreq = sorted(modFreq.items(), key=lambda x: x[1], reverse=True)
+  print modsSortedByFreq[:10]
+
+if (len(sys.argv) > 1):
+  printTop10ModulesByFreq(sys.argv[1])
+else:
+  printTop10ModulesByFreq("/Users/dan/Desktop/Dev/_scirun/trunk/SCIRun/src/nets")

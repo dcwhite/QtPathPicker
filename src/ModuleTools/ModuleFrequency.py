@@ -21,7 +21,7 @@ def moduleLines(file):
 
 	
 testFile = r"E:\scirun\trunk_ref\SCIRun\src\nets\FwdInvToolbox\activation-based-fem\activation-based-fem.srn"
-ml = moduleLines()
+ml = moduleLines(testFile)
 
 sampleLine = ml[0]
 
